@@ -1,2 +1,2 @@
 # DSC80-Final-Project
-This project will use the data Recipes and Ratings!
+This project will use the data Recipes and Ratings! With the data, I will try to predict the calorie content of a recipe based on simple descriptive features. Instead of relying directly on the nutrition label, my goal is to teach a model to estimate calories from things you would normally know before cooking, such as the number of steps in the recipe, the number of ingredients, and potentially tags that describe the dish. By looking at how recipe structure relates to nutritional value, I hope to see whether ingredient count, or cooking time can meaningfully explain calorie levels, which is important since people cook and often times these metrics are really commonly compared.
