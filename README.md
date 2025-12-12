@@ -19,3 +19,125 @@ I will investigate the relationship between vision control and gold advantage du
 Through my exploration of this dataset, I aim to answer the following question:
 
 **Is vision advantage associated with higher gold advantage during a League of Legends match?**
+
+
+
+**Dataset Description**
+
+The dataset consists of ranked League of Legends match data, where each row corresponds to a player in a single match. Key features include:
+
+visionscore: Contribution to team vision
+
+wardsplaced: Number of wards placed
+
+earnedgold: Total gold earned
+
+position: Player role
+
+split: Game patch / time period
+
+win: Match outcome (target variable)
+
+Missingness and feature distributions were carefully analyzed prior to modeling.
+
+
+
+**Exploratory Data Analysis**
+Vision Score Distribution
+
+The distribution of vision score is right-skewed, indicating that while most players contribute moderate vision, a smaller group contributes significantly more.
+
+<iframe src="assets/vision-score.html" width="750" height="550"></iframe>
+
+
+
+**Wards Placed Distribution**
+
+Ward placement is a key driver of vision. Most players place a relatively small number of wards, with fewer players placing very high amounts.
+
+<iframe src="assets/wards-placed.html" width="750" height="550"></iframe>
+
+
+
+**Missingness Analysis**
+
+To determine whether missing data was random, Total Variation Distance (TVD) permutation tests were conducted.
+
+Split Missingness Test
+
+This test examines whether missingness depends on the game split.
+
+<iframe src="assets/tvd-split.html" width="750" height="550"></iframe>
+
+Conclusion:
+The observed TVD falls within the permutation distribution, suggesting missingness is consistent with randomness.
+
+
+
+
+**Position Missingness Test**
+
+This test examines whether missingness depends on player position.
+
+<iframe src="assets/tvd-position.html" width="750" height="550"></iframe>
+
+Conclusion:
+The observed TVD is significantly larger than expected under randomness, indicating missingness is not completely random with respect to position.
+
+
+
+
+**Hypothesis Testing: Vision and Gold Advantage**
+**Question**
+
+Do players with higher vision contribute to greater gold advantages?
+
+**Method**
+
+Players were split into high-vision and low-vision groups, and a permutation test was used to evaluate the difference in mean gold advantage.
+
+<iframe src="assets/gold-diff-permutation.html" width="750" height="550"></iframe>
+**Result**
+
+The observed difference lies in the extreme tail of the permutation distribution, producing a statistically significant p-value.
+
+**Conclusion:**
+Higher vision contribution is associated with greater gold advantage.
+
+
+
+
+**Prediction Modeling**
+**Baseline Model**
+
+A baseline Random Forest classifier was trained to predict match outcomes using gameplay features.
+
+**Final Model**
+
+The final model incorporated:
+
+Feature scaling
+
+One-hot encoding for categorical variables
+
+Hyperparameter tuning via cross-validation
+
+Performance was evaluated using:
+
+Precision
+
+F1 score
+
+Confusion matrix analysis
+
+The tuned model significantly outperformed the baseline.
+
+
+
+
+**Fairness Analysis**
+
+To assess fairness, model precision was compared across low-gold and high-gold player groups using a permutation test.
+
+Conclusion:
+The model demonstrates measurable differences in performance across gold contexts, indicating potential fairness concerns that warrant further investigation.
